@@ -91,7 +91,6 @@ module Associatable
       parsed_results = source_options.model_class.parse_all(results.drop(1))
       parsed_results.first
     end
-
   end
 end
 
