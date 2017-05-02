@@ -48,6 +48,32 @@ class SQLObject
     parse_all(@table_data.drop(1))
   end
 
+  def self.first
+    @table_data = DBConnection.execute2(<<-SQL)
+      SELECT
+        *
+      FROM
+        #{table_name}
+      LIMIT
+        1
+    SQL
+    parse_all(@table_data.drop(1)).first
+  end
+
+  def self.last
+    @table_data = DBConnection.execute2(<<-SQL)
+      SELECT
+        *
+      FROM
+        #{table_name}
+      ORDER BY
+        id DESC
+      LIMIT
+        1
+    SQL
+    parse_all(@table_data.drop(1)).last
+  end
+
   def self.parse_all(results)
     results.inject([]) do |accumulator, entry|
       accumulator << self.new(entry)
