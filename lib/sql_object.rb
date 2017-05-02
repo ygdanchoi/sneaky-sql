@@ -3,18 +3,12 @@ require 'active_support/inflector'
 
 class SQLObject
 
-  @table_name_override
-  @table_data
-  @attributes
+  def self.table_name=(table_name)
+    @table_name_override = table_name
+  end
 
-  def self.columns
-    @table_data ||= DBConnection.execute2(<<-SQL)
-      SELECT
-        *
-      FROM
-        #{table_name}
-    SQL
-    @table_data.first.map { |str| str.to_sym }
+  def self.table_name
+    @table_name_override || self.to_s.tableize
   end
 
   def self.finalize!
@@ -28,13 +22,16 @@ class SQLObject
     end
   end
 
-  def self.table_name=(table_name)
-    @table_name_override = table_name
+  def self.columns
+    @table_data ||= DBConnection.execute2(<<-SQL)
+      SELECT
+        *
+      FROM
+        #{table_name}
+    SQL
+    @table_data.first.map { |str| str.to_sym }
   end
 
-  def self.table_name
-    @table_name_override || self.to_s.tableize
-  end
 
   def self.all
     @table_data = DBConnection.execute2(<<-SQL)
@@ -101,15 +98,15 @@ class SQLObject
 
   def update
     columns = self.class.columns
-    set_eqs = self.class.columns.map do |attr_name|
+    set_statements = self.class.columns.map do |attr_name|
       "#{attr_name} = ?"
     end
-    set_eqs = set_eqs.drop(1).join(", ")
+    set_statements = set_statements.drop(1).join(", ")
     DBConnection.execute2(<<-SQL, *attribute_values.drop(1), id)
       UPDATE
         #{self.class.table_name}
       SET
-        #{set_eqs}
+        #{set_statements}
       WHERE
         id = ?
     SQL

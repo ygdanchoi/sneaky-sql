@@ -3,15 +3,15 @@ require_relative 'sql_object'
 
 module Searchable
   def where(params)
-    where_line = params.keys.map { |attr_name| "#{attr_name} = ?" }
-    where_line = where_line.join(" AND ")
+    where_statements = params.keys.map { |attr_name| "#{attr_name} = ?" }
+    where_statements = where_statements.join(" AND ")
     results = DBConnection.execute2(<<-SQL, params.values)
       SELECT
         *
       FROM
         #{self.table_name}
       WHERE
-        #{where_line}
+        #{where_statements}
     SQL
     parse_all(results.drop(1))
   end
