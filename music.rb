@@ -18,9 +18,19 @@ class Album < SQLObject
     class_name: 'Artist',
     primary_key: :id,
     foreign_key: :artist_id
+
+  self.has_many :tracks,
+    class_name: 'Track',
+    primary_key: :id,
+    foreign_key: :album_id
 end
 
 class Track < SQLObject
   self.table_name = 'tracks'
   self.finalize!
+
+  self.belongs_to :album,
+    class_name: 'Album',
+    primary_key: :id,
+    foreign_key: :album_id
 end

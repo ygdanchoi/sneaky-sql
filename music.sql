@@ -45,4 +45,17 @@ VALUES
   (11, "Up In Flames", 1),
   (12, "A Hopeful Transmission", 1),
   (13, "Don't Let It Break Your Heart", 1),
-  (14, "Up With The Birds", 1);
+  (14, "Up With The Birds", 1),
+  (15, "Good Morning", 2),
+  (16, "Champion", 2),
+  (17, "Stronger", 2),
+  (18, "I Wonder", 2),
+  (19, "Good Life (Feat. T-Pain)", 2),
+  (20, "Can't Tell Me Nothing", 2),
+  (21, "Barry Bonds (Feat. Lil Wayne)", 2),
+  (22, "Drunk And Hot Girls (Feat. Mos Def)", 2),
+  (23, "Flashing Lights (Feat. Dwele)", 2),
+  (24, "Everything I Am (Feat. DJ Premier)", 2),
+  (25, "The Glory", 2),
+  (26, "Homecoming (Feat. Chris Martin)", 2),
+  (27, "Big Brother", 2);
