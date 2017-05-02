@@ -1,6 +1,5 @@
 require_relative 'searchable'
 require 'active_support/inflector'
-require 'byebug'
 
 class AssocOptions
   attr_accessor(
@@ -92,8 +91,4 @@ module Associatable
       parsed_results.first
     end
   end
-end
-
-class SQLObject
-  extend Associatable
 end

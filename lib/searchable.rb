@@ -1,5 +1,4 @@
 require_relative 'db_connection'
-require_relative 'sql_object'
 
 module Searchable
   def where(params)
@@ -15,8 +14,4 @@ module Searchable
     SQL
     parse_all(results.drop(1))
   end
-end
-
-class SQLObject
-  extend Searchable
 end

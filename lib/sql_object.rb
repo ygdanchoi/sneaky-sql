@@ -1,7 +1,12 @@
 require_relative 'db_connection'
+require_relative 'searchable'
+require_relative 'associatable'
 require 'active_support/inflector'
 
 class SQLObject
+
+  extend Searchable
+  extend Associatable
 
   def self.table_name=(table_name)
     @table_name_override = table_name
