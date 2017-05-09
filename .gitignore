@@ -1,2 +1,4 @@
 .byebug_history
 .fuse_hidden*
+Gemfile.lock
+music.db
