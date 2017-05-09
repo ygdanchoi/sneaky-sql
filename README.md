@@ -5,14 +5,14 @@ SneakySQL is an ORM (object-relational mapping) tool for SQLite3 written in Ruby
 ## Demo Instructions
 
 ### Cloud9
-1. `pry -r './music.rb'`
+1. `bundle exec pry -r './music.rb'`
 2. Follow along below with `Artist`, `Album`, and `Track`
 
 ### Local Installation
 1. `git clone https://github.com/ygdanchoi/sneaky-sql`
 2. `cd sneaky-sql`
 3. `bundle install`
-4. `pry -r './music.rb'`
+4. `bundle exec pry -r './music.rb'`
 5. Follow along below with `Artist`, `Album`, and `Track`
 
 ## Features & Usage
@@ -163,3 +163,5 @@ end
 > a.tracks.map { |track| track.title }
 => ["Mylo Xyloto", "Hurts Like Heaven", "Paradise", "Charlie Brown", "Us Against THe World", "M.M.I.X.", "Every Teardrop Is A Waterfall", "Major Minus", "U.F.O.", "Princess Of China", "Up In Flames", "A Hopeful Transmission", "Don't Let It Break Your Heart", "Up With The Birds"]
 ```
+
+## Source Code Snippets
