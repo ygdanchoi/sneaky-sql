@@ -5,8 +5,9 @@ SneakySQL is an ORM (object-relational mapping) tool for SQLite3 written in Ruby
 ## Demo Instructions
 
 ### Cloud9
-1. `pry -r './music.rb'`
-2. Follow along below with `Artist`, `Album`, and `Track`
+1. [Open workspace](https://ide.c9.io/ygdanchoi/sneaky-sql)
+2. `pry -r './music.rb'`
+3. Follow along below with `Artist`, `Album`, and `Track`
 
 ### Local Installation
 1. `git clone https://github.com/ygdanchoi/sneaky-sql`
