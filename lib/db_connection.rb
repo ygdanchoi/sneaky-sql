@@ -4,8 +4,8 @@ require 'sqlite3'
 ROOT_FOLDER = File.join(File.dirname(__FILE__), '..')
 Dir.glob('*.sql') do |sql_file|
   db_file = sql_file.split('.').first + '.db'
-  CATS_SQL_FILE ||= File.join(ROOT_FOLDER, sql_file)
-  CATS_DB_FILE ||= File.join(ROOT_FOLDER, db_file)
+  SQL_FILE ||= File.join(ROOT_FOLDER, sql_file)
+  DB_FILE ||= File.join(ROOT_FOLDER, db_file)
 end
 
 class DBConnection
@@ -19,12 +19,12 @@ class DBConnection
 
   def self.reset
     commands = [
-      "rm '#{CATS_DB_FILE}'",
-      "cat '#{CATS_SQL_FILE}' | sqlite3 '#{CATS_DB_FILE}'"
+      "rm '#{DB_FILE}'",
+      "cat '#{SQL_FILE}' | sqlite3 '#{DB_FILE}'"
     ]
 
     commands.each { |command| `#{command}` }
-    DBConnection.open(CATS_DB_FILE)
+    DBConnection.open(DB_FILE)
   end
 
   def self.instance
