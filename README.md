@@ -5,7 +5,7 @@ SneakySQL is an ORM (object-relational mapping) tool for SQLite3 written in Ruby
 ## Demo Instructions
 
 ### Cloud9
-1. `bundle exec pry -r './music.rb'`
+1. `pry -r './music.rb'`
 2. Follow along below with `Artist`, `Album`, and `Track`
 
 ### Local Installation
@@ -92,7 +92,7 @@ Allows the user to initialize a new instance of `SQLObject` using a params hash
 
 ### `SQLObject#save`
 
-Either inserts or updates the database based on whether the `SQLObject` instance has an id
+Inserts or updates the database based on whether the `SQLObject` instance has an id
 ```ruby
 > good_night.save
 => 28
@@ -165,3 +165,87 @@ end
 ```
 
 ## Source Code Snippets
+
+`SQLObject#save` either creates or updates a database entry depending on whether the `SQLObject` already has an `id`.
+```ruby
+def save
+  id.nil? ? insert : update
+end
+```
+If an `id` does not exist, the `insert` method executes a SQL statement in the form below:
+```sql
+INSERT INTO
+  table_name (column1, column2, column3, ...)
+VALUES
+  (value1, value2, value3, ...);
+```
+```ruby
+def insert
+  columns = self.class.columns
+  col_names = columns.join(", ")
+  question_marks = (["?"] * columns.length).join(", ")
+  DBConnection.execute2(<<-SQL, *attribute_values)
+    INSERT INTO
+      #{self.class.table_name} (#{col_names})
+    VALUES
+      (#{question_marks})
+  SQL
+  self.id = DBConnection.last_insert_row_id
+end
+```
+If an `id` does exist, the `update` method executes a SQL statement in the form below:
+```sql
+UPDATE
+  table_name
+SET
+  column1 = value1, column2 = value2, ...
+WHERE
+  id = #
+```
+```ruby
+def update
+  columns = self.class.columns
+  set_statements = self.class.columns.map do |attr_name|
+    "#{attr_name} = ?"
+  end
+  set_statements = set_statements.drop(1).join(", ")
+  DBConnection.execute2(<<-SQL, *attribute_values.drop(1), id)
+    UPDATE
+      #{self.class.table_name}
+    SET
+      #{set_statements}
+    WHERE
+      id = ?
+  SQL
+end
+```
+`SQLObject` extends a `Searchable` module, which contains a `where` class method that finds database entries matching a query hash `params` by a executing a SQL statement in the form below:
+```sql
+SELECT
+  *
+FROM
+  table_name
+WHERE
+  attr1 = value1, attr2 = value2, ...;
+```
+```ruby
+module Searchable
+  def where(params)
+    where_statements = params.keys.map { |attr_name| "#{attr_name} = ?" }
+    where_statements = where_statements.join(" AND ")
+    results = DBConnection.execute2(<<-SQL, params.values)
+      SELECT
+        *
+      FROM
+        #{self.table_name}
+      WHERE
+        #{where_statements}
+    SQL
+    parse_all(results.drop(1))
+  end
+end
+
+class SQLObject
+  extend Searchable
+end
+```
