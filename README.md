@@ -101,6 +101,26 @@ Inserts or updates the database based on whether the `SQLObject` instance has an
 => #<Track:0x007fffeb80d570 @attributes={:id=>28, :track=>14, :title=>"Good Night", :album_id=>2}>
 ```
 
+### `SQLObject#destroy`
+
+Deletes the database entry mapped to the `SQLObject` instance
+```ruby
+> good_night.destroy
+=> #<Track:0x007fffeb80d570 @attributes={:id=>28, :track=>14, :title=>"Good Night", :album_id=>2}>
+> Track.find(28)
+=> nil
+```
+
+### `SQLObject::destroy_all`
+
+Deletes all database entries in the table
+```ruby
+> Artist.destroy_all
+=> [#<Artist:0x00000000b164a8 @attributes={:id=>1, :name=>"Coldplay"}>, #<Artist:0x00000000b162c8 @attributes={:id=>2, :name=>"Kanye West"}>]
+> Artist.all
+=> []
+```
+
 ### `SQLObject::belongs_to`
 
 Creates an association returning a `SQLObject` for entries containing a corresponding primary key
