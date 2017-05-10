@@ -113,7 +113,7 @@ Deletes the database entry mapped to the `SQLObject` instance
 
 ### `SQLObject::destroy_all`
 
-Deletes all database entries in the table
+Deletes all database entries in the corresponding SQL table
 ```ruby
 > Artist.destroy_all
 => [#<Artist:0x00000000b164a8 @attributes={:id=>1, :name=>"Coldplay"}>, #<Artist:0x00000000b162c8 @attributes={:id=>2, :name=>"Kanye West"}>]
