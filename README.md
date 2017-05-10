@@ -167,6 +167,8 @@ end
 
 ## Source Code Snippets
 
+### `SQLObject#save`
+
 `SQLObject#save` either creates or updates a database entry depending on whether the `SQLObject` already has an `id`.
 ```ruby
 def save
@@ -220,6 +222,9 @@ def update
   SQL
 end
 ```
+
+### `SQLObject::where`
+
 `SQLObject` extends a `Searchable` module, which contains a `where` class method that finds database entries matching a query hash `params` by a executing a SQL statement in the form below:
 ```sql
 SELECT
