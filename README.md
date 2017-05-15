@@ -2,14 +2,8 @@
 
 SneakySQL is an ORM (object-relational mapping) tool for SQLite3 written in Ruby and inspired by Rails ActiveRecord. `SQLObject` uses the `sqlite` and `activesupport` gems to allow users to manipulate SQL tables using object-oriented programming techniques.
 
-## Demo Instructions
+## Demo Installation
 
-### Cloud9
-1. [Open workspace](https://ide.c9.io/ygdanchoi/sneaky-sql)
-2. `pry -r './music.rb'`
-3. Follow along below with `Artist`, `Album`, and `Track`
-
-### Local Installation
 1. `git clone https://github.com/ygdanchoi/sneaky-sql`
 2. `cd sneaky-sql`
 3. `bundle install`
